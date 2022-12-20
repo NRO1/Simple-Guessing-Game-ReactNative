@@ -2,7 +2,8 @@ import { useState } from "react";
 import { TextInput, View, StyleSheet, Alert } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 
-function StartScreen() {
+
+function StartScreen({onPickedNumber}) {
   const [enteredNumber, setEneterdNumber] = useState("");
 
   function inputHandler(enteredNumber) {
@@ -24,7 +25,7 @@ function StartScreen() {
       );
       return;
     }
-    console.log('valid number!!!')
+    onPickedNumber(chosenNumber)
   }
 
   return (
