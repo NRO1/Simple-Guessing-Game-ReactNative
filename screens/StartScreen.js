@@ -35,9 +35,8 @@ function StartScreen({onPickedNumber}) {
         style={styles.numberInput}
         maxLength={2}
         keyboardType="number-pad"
-        s
         autoCapitalize="none"
-        autoCorrect="none"
+        autoCorrect={false}
         onChangeText={inputHandler}
         value={enteredNumber}
       />
