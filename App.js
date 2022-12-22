@@ -3,6 +3,7 @@ import StartScreen from "./screens/StartScreen";
 import { LinearGradient } from "expo-linear-gradient";
 import GameScreen from "./screens/GameScreen";
 import { useState } from 'react';
+import Colors from "./util/colors";
 
 export default function App() {
   const [userNumber, setUserNumber] = useState();
@@ -10,15 +11,14 @@ export default function App() {
   function pickedNumberHandler(pickedNumber) {
     setUserNumber(pickedNumber)
   }
-
   let screen = <StartScreen onPickedNumber={pickedNumberHandler} />
   if (userNumber) {
-    screen = <GameScreen />
+    screen = <GameScreen userNumber={userNumber}/>
   }
 
 
   return (
-    <LinearGradient style={styles.rootScreen} colors={["#3e0329", "#ddb52f"]}>
+    <LinearGradient style={styles.rootScreen} colors={[Colors.primary_250, Colors.yellow_100]}>
       <ImageBackground
         source={require("./assets/dice.png")}
         resizeMode="cover"
