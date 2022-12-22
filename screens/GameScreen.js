@@ -46,7 +46,6 @@ function GameScreen({userNumber}) {
                     <PrimaryButton onPress={nextGuess.bind(this, 'greater')}>+</PrimaryButton>
                 </View>
             </View>
-            <View></View>
         </View>
     )
 }
