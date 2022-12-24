@@ -1,8 +1,10 @@
 import { Text,StyleSheet, View , Alert} from 'react-native';
 import Title from '../components/Title';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import NumberContainer from '../components/NumberContainer';
 import PrimaryButton from '../components/PrimaryButton';
+import Card from '../components/Card';
+import Colors from '../util/colors';
 
 function randBetween( min, max, exclude) {
     const rnd = Math.floor(Math.random() * (max - min)) + min;
@@ -17,9 +19,15 @@ function randBetween( min, max, exclude) {
 let minBoundary = 1;
 let maxBoundary = 100;
 
-function GameScreen({userNumber}) {
-    const initGuess = randBetween(minBoundary, maxBoundary, userNumber);
+function GameScreen({userNumber, onGameOver}) {
+    const initGuess = randBetween(1, 100, userNumber);
     const [currentGuess, setCurrentGuess] = useState(initGuess);
+
+    useEffect(() => {
+        if (currentGuess === userNumber) {
+            onGameOver()
+        }
+    },[currentGuess, userNumber, onGameOver])
 
     function nextGuess(direction) {
         if ((direction === 'lower' && currentGuess < userNumber) || (direction === 'greater' && currentGuess > userNumber)) {
@@ -39,13 +47,13 @@ function GameScreen({userNumber}) {
         <View style={styles.screen}>
             <Title>Opponent's Guess</Title>
             <NumberContainer>{currentGuess}</NumberContainer>
-            <View>
-                <Text>Higer or Lower?</Text>
+            <Card>
+                <Text style={styles.instructionsText}>Higer or Lower?</Text>
                 <View>
-                    <PrimaryButton onPress={nextGuess.bind(this, 'lower')}>-</PrimaryButton>
                     <PrimaryButton onPress={nextGuess.bind(this, 'greater')}>+</PrimaryButton>
+                    <PrimaryButton onPress={nextGuess.bind(this, 'lower')}>-</PrimaryButton>
                 </View>
-            </View>
+            </Card>
         </View>
     )
 }
@@ -56,5 +64,9 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1,
         padding: 24,
-    }
+    },
+    instructionsText: {
+        color: Colors.yellow_100,
+        fontSize: 24,
+      }
 })
