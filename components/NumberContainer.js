@@ -24,7 +24,5 @@ const styles = StyleSheet.create({
     numTetx: {
         color: Colors.yellow_100,
         fontSize: 36,
-        fontWeight: 'bold',
-
     }
 })

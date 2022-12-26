@@ -5,18 +5,37 @@ import GameScreen from "./screens/GameScreen";
 import { useState } from 'react';
 import Colors from "./util/colors";
 import GameOverScreen from "./screens/GameOverScreen";
+//import { useFonts } from 'expo-font';
+//import AppLoading from 'expo-app-loading';
 
 export default function App() {
   const [userNumber, setUserNumber] = useState();
-  const [gameOver, setGameOver] = useState(true)
+  const [gameOver, setGameOver] = useState(true);
+  const [rounds, setRounds] = useState(0);
+
+  /*DEPRICATED
+  const [fontsLoaded] = useFonts({
+    'opne-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
+    'open-sans-bold' : require('./assets/fonts/OpenSans-Bold.ttf')
+  })
+
+  if (!fontsLoaded) {
+    return <AppLoading />
+  }*/
+
+  function StartNewGame() {
+    setUserNumber(null);
+    setRounds(0);
+  }
 
   function pickedNumberHandler(pickedNumber) {
     setUserNumber(pickedNumber);
     setGameOver(false);
   }
 
-  function gameOverHandler() {
-    setGameOver(true)
+  function gameOverHandler(numOfRounds) {
+    setGameOver(true);
+    setRounds(numOfRounds)
   }
 
   let screen = <StartScreen onPickedNumber={pickedNumberHandler} />
@@ -25,7 +44,7 @@ export default function App() {
   }
 
   if (gameOver && userNumber) {
-    screen = <GameOverScreen />
+    screen = <GameOverScreen userNumber={userNumber} roundsNumber={rounds} onStartNewGame={StartNewGame} />
   }
 
 
@@ -48,6 +67,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   bgImage: {
-    opacity: 0.5,
+    opacity: 0.1,
   }
 });
